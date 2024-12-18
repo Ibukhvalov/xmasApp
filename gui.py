@@ -15,7 +15,7 @@ class App:
         self.main_frame.pack(padx=20, pady=20)
 
         self.santa_image = Image.open("santa.png")  # Замените на путь к вашему изображению
-        self.santa_image = self.santa_image.resize((100, 100), Image.LANCZOS)  # Изменение размера изображения
+        self.santa_image = self.santa_image.resize((500, 500), Image.LANCZOS)  # Изменение размера изображения
         self.santa_photo = ImageTk.PhotoImage(self.santa_image)
 
         # Вставка изображения колпака
@@ -24,9 +24,6 @@ class App:
         self.santaHat_photo = ImageTk.PhotoImage(self.santaHat_image)
         self.santaHat_button = tk.Button(self.main_frame, image=self.santaHat_photo, command=self.open_login_for_santas)
         self.santaHat_button.place(relx=1.0, rely=1.0, anchor='se')
-        #self.santa_button.pack(padx=0, pady=0)
-        # self.santa_button.grid(row=10, column=10)
-        # self.santa_button.place(x=90, y=45)
 
         self.register_button = tk.Button(self.main_frame, text="Зарегистрироваться", command=self.open_registration)
         self.register_button.pack(pady=10)
@@ -83,10 +80,6 @@ class App:
     def open_login_for_santas(self):
         self.clear_frame()
 
-        # Создание метки для отображения изображения
-        self.santa_label = tk.Label(self.root, image=self.santa_photo)
-        self.santa_label.grid(row=0, column=0)  # Используем grid для метки
-
         self.login_frame = tk.Frame(self.root)
         self.login_frame.pack(padx=20, pady=20)
 
@@ -100,6 +93,10 @@ class App:
 
         self.login_submit_button = tk.Button(self.login_frame, text="Войти", command=self.login)
         self.login_submit_button.grid(row=2, columnspan=2, pady=10)
+
+        # Создание метки для отображения изображения
+        self.santa_label = tk.Label(self.root, image=self.santa_photo)
+        self.santa_label.pack(pady=10)  # Используем pack для метки с изображением
 
     def clear_frame(self):
         for widget in self.root.winfo_children():
