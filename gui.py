@@ -9,27 +9,57 @@ class App:
         self.root.title("Авторизация")
         self.root.geometry("800x600")
 
+        # Загрузка изображений
+        self.load_images()
+
         # Главное окно с кнопками
-        self.main_frame = tk.Frame(root)
-        self.main_frame.pack(fill=tk.BOTH, expand=True)
-        self.main_frame.pack(padx=20, pady=20)
+        #self.main_frame = tk.Frame(root)
+        #self.main_frame.pack(fill=tk.BOTH, expand=True)
+
+        self.first_page()
+
+
+    def load_images(self):
+        """Загрузка и изменение размера изображений."""
+        self.back_image = Image.open("back.png")  # Замените на путь к вашему изображению
+        self.back_image = self.back_image.resize((50, 30), Image.LANCZOS)
+        self.back_photo = ImageTk.PhotoImage(self.back_image)
 
         self.santa_image = Image.open("santa.png")  # Замените на путь к вашему изображению
-        self.santa_image = self.santa_image.resize((500, 500), Image.LANCZOS)  # Изменение размера изображения
+        self.santa_image = self.santa_image.resize((500, 500), Image.LANCZOS)
         self.santa_photo = ImageTk.PhotoImage(self.santa_image)
 
-        # Вставка изображения колпака
-        self.santaHat_image = Image.open("santaHat.png")  # Замените на путь к вашему изображению
-        self.santaHat_image = self.santaHat_image.resize((30, 30), Image.LANCZOS)  # Изменение размера изображения
-        self.santaHat_photo = ImageTk.PhotoImage(self.santaHat_image)
-        self.santaHat_button = tk.Button(self.main_frame, image=self.santaHat_photo, command=self.open_login_for_santas)
-        self.santaHat_button.place(relx=1.0, rely=1.0, anchor='se')
+        self.child_image = Image.open("child.png")  # Замените на путь к вашему изображению
+        self.child_image = self.child_image.resize((600, 300), Image.LANCZOS)
+        self.child_photo = ImageTk.PhotoImage(self.child_image)
 
-        self.register_button = tk.Button(self.main_frame, text="Зарегистрироваться", command=self.open_registration)
+        self.newYear_image = Image.open("newYear.png")  # Замените на путь к вашему изображению
+        self.newYear_image = self.newYear_image.resize((500, 400), Image.LANCZOS)
+        self.newYear_photo = ImageTk.PhotoImage(self.newYear_image)
+
+        self.bag_image = Image.open("bag.png")  # Замените на путь к вашему изображению
+        self.bag_image = self.bag_image.resize((110, 110), Image.LANCZOS)
+        self.bag_photo = ImageTk.PhotoImage(self.bag_image)
+
+        self.deer_image = Image.open("deer.png")  # Замените на путь к вашему изображению
+        self.deer_image = self.deer_image.resize((200, 300), Image.LANCZOS)
+        self.deer_photo = ImageTk.PhotoImage(self.deer_image)
+
+    def first_page(self):
+        self.clear_frame()
+
+        self.newYear_label = tk.Label(self.root, image=self.newYear_photo)
+        self.newYear_label.place(x=150, y=150)
+
+        self.register_button = tk.Button(self.root, text="Зарегистрироваться", command=self.open_registration)
         self.register_button.pack(pady=10)
 
-        self.login_button = tk.Button(self.main_frame, text="Войти", command=self.open_login)
+        self.login_button = tk.Button(self.root, text="Войти", command=self.open_login)
         self.login_button.pack(pady=10)
+
+        self.bag_button = tk.Button(self.root, image=self.bag_photo, command=self.open_login_for_santas, borderwidth=0,
+                                    highlightthickness=0, bg=self.root.cget("bg"))
+        self.bag_button.place(x=578, y=440)
 
     def open_registration(self):
         self.clear_frame()
@@ -49,15 +79,14 @@ class App:
         self.reg_password_confirm_entry = tk.Entry(self.registration_frame, show='*')
         self.reg_password_confirm_entry.grid(row=2, column=1)
 
-        self.register_submit_button = tk.Button(self.registration_frame, text="Зарегистрироваться",
-                                                command=self.register)
+        self.register_submit_button = tk.Button(self.registration_frame, text="Зарегистрироваться", command=self.register)
         self.register_submit_button.grid(row=3, columnspan=2, pady=10)
 
-        tk.Label(self.registration_frame, text="Уже есть аккаунт?").grid(row=5, column=0)
-        tk.Label(self.registration_frame, text="Тогда:").grid(row=6, column=0)
-        self.register_login_button = tk.Button(self.registration_frame, text="Войти",
-                                                command=self.open_login)
-        self.register_login_button.grid(row=6, columnspan=2, pady=10)
+        self.deer_label = tk.Label(self.root, image=self.deer_photo)
+        self.deer_label.place(x=570, y=250)
+
+        self.back_button = tk.Button(self.root, image=self.back_photo, command=self.first_page)
+        self.back_button.place(relx=0.0, rely=0.0, anchor='nw')
 
     def open_login(self):
         self.clear_frame()
@@ -76,6 +105,11 @@ class App:
         self.login_submit_button = tk.Button(self.login_frame, text="Войти", command=self.login)
         self.login_submit_button.grid(row=2, columnspan=2, pady=10)
 
+        self.child_label = tk.Label(self.root, image=self.child_photo)
+        self.child_label.pack(pady=50)
+
+        self.back_button = tk.Button(self.root, image=self.back_photo, command=self.first_page)
+        self.back_button.place(relx=0.0, rely=0.0, anchor='nw')
 
     def open_login_for_santas(self):
         self.clear_frame()
